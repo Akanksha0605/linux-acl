@@ -12,13 +12,12 @@ UUID="$(lsblk -d -fs $FS | awk 'NR==2 {print $3}')"
 
 #Find the UUID and matching line number in /etc/fstab
 LINENUMBER="$(grep -n "$UUID" /etc/fstab | awk -F: '{print $1}')"
-#echo ${LINENUMBER}
 
 #Edit /etc/fstab with acl as mount option
 #sed -i "${LINENUMBER}s/defaults /defaults,acl /" /etc/fstab
 
 #Remounting the filesystem
-#mount -o remount ${FS}
+mount -o remount ${FS}
 
 #Set adam user & group to read /var/log
 #setfacl -m u:adam:r /var/log
